@@ -16,15 +16,15 @@ public class Helper {
         float angle=(float)radians* MathUtils.radiansToDegrees;
         return angle;
     }
-    public static float xSpeed(double playerX, double playerY, double speed){
-        float xSpeed = (float) (speed*Math.cos(findDegree(playerX, playerY)*MathUtils.degreesToRadians));
+    public static float xSpeed(double playerX, double playerY, double speed, float degree){
+        float xSpeed = (float) (speed*Math.cos(degree*MathUtils.degreesToRadians));
 //        System.out.println("x: " + xSpeed);
 //        System.out.println("speed: " + speed);
 //        System.out.println(100*Math.sin(30*MathUtils.degreesToRadians));
         return xSpeed;
     }
-    public static float ySpeed(double playerX, double playerY, double speed){
-        float ySpeed = (float) (speed*Math.sin(findDegree(playerX, playerY)*MathUtils.degreesToRadians));
+    public static float ySpeed(double playerX, double playerY, double speed, float degree){
+        float ySpeed = (float) (speed*Math.sin(degree*MathUtils.degreesToRadians));
 //        System.out.println("y: " + ySpeed);
         return ySpeed;
     }

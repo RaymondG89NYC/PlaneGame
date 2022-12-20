@@ -12,6 +12,8 @@ public class Plane {
     public Sprite sprite;
     float distance;
     float height;
+    boolean rightSideUp;
+    float angle;
 
     public Plane(Texture img){
         x = Gdx.graphics.getWidth()/2-10;
@@ -19,6 +21,7 @@ public class Plane {
         sprite = new Sprite(img);
         sprite.setScale(2);
         speed = 0;
+        angle = 0;
     }
 
     public void draw(SpriteBatch batch){
@@ -27,11 +30,24 @@ public class Plane {
 //        System.out.println(x + "," + y);
     }
     public void update(){
-        float angle = Helper.findDegree(this.x, this.y);
-        sprite.setRotation(angle);
-        if(angle>=175){
-            sprite.flip(false,true);
+        float mouseAngle = Helper.findDegree(this.x, this.y);
+
+        while(checkAngle()){
+            fixAngle();
         }
+        if(rotateDirection(angle, mouseAngle)){
+            if(angle + 1 == mouseAngle || angle - 1 == mouseAngle){
+
+            }
+            else {
+                angle += 4;
+            }
+        }
+        else{
+            angle -= 4;
+        }
+        System.out.println(angle);
+        sprite.setRotation(angle);
         distance += getXSpeed();
         height += getYSpeed();
     }
@@ -46,10 +62,34 @@ public class Plane {
         }
     }
     public float getXSpeed(){
-        return Helper.xSpeed(this.x, this.y, speed);
+        return Helper.xSpeed(this.x, this.y, speed, angle);
     }
     public float getYSpeed(){
-        return Helper.ySpeed(this.x, this.y, speed);
+        return Helper.ySpeed(this.x, this.y, speed, angle);
+    }
+
+    public boolean rotateDirection(float object, float target){
+//        if(object < 0 && target > 0){
+//
+//            System.out.println("Test");
+//
+//            return (object - target <= 180 && object - target >= 0);
+//        }
+        return !(object - target <= 180 && object - target >= 0);
+    }
+
+    public boolean checkAngle(){
+        return (angle > 180 || angle < -180);
+
+    }
+
+    public void fixAngle(){
+        if(angle > 180){
+            angle -= 360;
+        }
+        if(angle < -180){
+            angle += 360;
+        }
     }
 
 }
