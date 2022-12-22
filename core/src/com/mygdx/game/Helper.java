@@ -28,4 +28,7 @@ public class Helper {
 //        System.out.println("y: " + ySpeed);
         return ySpeed;
     }
+    public static boolean outOfScreen(double objectX, double objectY){
+        return ((objectX > Gdx.graphics.getWidth() || objectX < 0) || (objectY < 0 || objectY > Gdx.graphics.getHeight()));
+    }
 }

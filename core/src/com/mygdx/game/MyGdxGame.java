@@ -21,6 +21,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	float speedY;
 	Plane plane;
 	Background[] background;
+	Bullet[] bullets;
 	
 	@Override
 	public void create () {

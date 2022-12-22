@@ -67,6 +67,8 @@ public class Plane {
     public float getYSpeed(){
         return Helper.ySpeed(this.x, this.y, speed, angle);
     }
+    public float getX(){return x;}
+    public float getY(){return y;}
 
     public boolean rotateDirection(float object, float target){
 //        if(object < 0 && target > 0){
@@ -75,12 +77,13 @@ public class Plane {
 //
 //            return (object - target <= 180 && object - target >= 0);
 //        }
-        return !(object - target <= 180 && object - target >= 0);
+//        return !(object - target <= 180 && object - target >= 0);
+//        if(Math.abs()
+        return (object - target > 180 || object - target < 0);
     }
 
     public boolean checkAngle(){
         return (angle > 180 || angle < -180);
-
     }
 
     public void fixAngle(){
