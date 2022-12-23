@@ -69,6 +69,7 @@ public class Plane {
     }
     public float getX(){return x;}
     public float getY(){return y;}
+    public float getAngle(){return angle;}
 
     public boolean rotateDirection(float object, float target){
 //        if(object < 0 && target > 0){

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.Color;
+import java.util.ArrayList;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -21,7 +22,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	float speedY;
 	Plane plane;
 	Background[] background;
-	Bullet[] bullets;
+	ArrayList<Bullet> bullets;
+	int bulletFrame;
 	
 	@Override
 	public void create () {
@@ -36,15 +38,44 @@ public class MyGdxGame extends ApplicationAdapter {
 		for(int i = 0; i < background.length; i++) {
 			background[i] = new Background(backgroundImg, i);
 		}
+		bullets = new ArrayList<Bullet>();
 	}
 
 	@Override
 	public void render () {
+
 		ScreenUtils.clear(Color.BLACK);
 		batch.begin();
 
+		//frames
+		bulletFrame++;
+
 		speedX = plane.getXSpeed();
 		speedY = plane.getYSpeed();
+
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+//			int length = bullets.size();
+//			if(length == 0){
+//				bullets.add(new Bullet(bulletImg, plane));
+//			}
+//			length = bullets.size();
+
+			if(bulletFrame % 10 == 0) {
+				bullets.add(new Bullet(bulletImg, plane));
+			}
+
+		}
+
+		try{
+			for(Bullet b : bullets) {
+				b.update();
+					b.draw(batch);
+				System.out.println("test");
+			}
+		}
+		catch (Exception e) {
+			System.out.println("a");
+		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.W)){
 			plane.increaseSpeed();
@@ -52,8 +83,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		if(Gdx.input.isKeyPressed(Input.Keys.S)){
 			plane.decreaseSpeed();
 		}
-//		mouseX = Gdx.input.getX();
-//		mouseY = -Gdx.input.getY();
+
 		for(int i = 0; i < background.length; i++) {
 			background[i].update(speedX, speedY);
 			background[i].draw(batch);

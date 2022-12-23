@@ -10,28 +10,40 @@ public class Bullet {
     double y;
     double speedX;
     double speedY;
+    float angle;
     public Sprite sprite;
     boolean active;
-    public Bullet(Texture img, float x, float y){
-        this.x = x;
-        this.y = y;
+    public Bullet(Texture img, Plane plane){
+        x = plane.getX();
+        y = plane.getY();
+        speedX = plane.getXSpeed();
+        speedY = plane.getYSpeed();
+        angle = plane.getAngle();
         sprite = new Sprite(img);
-        sprite.setScale(5, 5);
+        sprite.setScale(100, 100);
+        active = true;
     }
     public void draw(SpriteBatch batch){
         sprite.setPosition((float) x, (float) y);
         sprite.draw(batch);
     }
-    public void update(float playerX, float playerY, float playerRotation){
-        if(active) {
-            x += playerX;
-            y += playerY;
-        }
-        if(Helper.outOfScreen(x, y)){
-            disable();
-        }
+    public void update(){
+        sprite.setRotation(angle);
+        x += speedY;
+        y += speedY;
+//        if(!active){
+//            x = plane.getX();
+//            y = plane.getY();
+//            speedX = plane.getXSpeed();
+//            speedY = plane.getYSpeed();
+//            angle = plane.getAngle();
+//        }
+//        if(Helper.outOfScreen(x, y)){
+//            disable();
+//        }
     }
-    public void disable(){
-        active = false;
-    }
+//    public void disable(){
+//        active = false;
+//    }
+//    public boolean getStatus(){return active;}
 }
