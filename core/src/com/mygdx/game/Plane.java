@@ -62,10 +62,10 @@ public class Plane {
         }
     }
     public float getXSpeed(){
-        return Helper.xSpeed(this.x, this.y, speed, angle);
+        return Helper.xSpeed(speed, angle);
     }
     public float getYSpeed(){
-        return Helper.ySpeed(this.x, this.y, speed, angle);
+        return Helper.ySpeed(speed, angle);
     }
     public float getX(){return x;}
     public float getY(){return y;}

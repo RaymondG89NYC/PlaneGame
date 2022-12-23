@@ -69,12 +69,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		try{
 			for(Bullet b : bullets) {
 				b.update();
-					b.draw(batch);
-				System.out.println("test");
+				b.draw(batch);
+				System.out.println("x: " + b.getX());
+				System.out.println("y: " + b.getY());
+				System.out.println("size: " + bullets.size());
 			}
 		}
 		catch (Exception e) {
-			System.out.println("a");
+			System.out.println("bullet try catch bug detected");
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.W)){

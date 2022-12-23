@@ -16,13 +16,21 @@ public class Bullet {
     public Bullet(Texture img, Plane plane){
         x = plane.getX();
         y = plane.getY();
-        speedX = plane.getXSpeed();
-        speedY = plane.getYSpeed();
         angle = plane.getAngle();
+        speedX = Helper.xSpeed(10, angle);
+        speedY = Helper.ySpeed(10, angle);
         sprite = new Sprite(img);
-        sprite.setScale(100, 100);
+        sprite.setScale(1000, 1000);
         active = true;
     }
+
+    public double getX(){
+        return x;
+    }
+    public double getY(){
+        return y;
+    }
+
     public void draw(SpriteBatch batch){
         sprite.setPosition((float) x, (float) y);
         sprite.draw(batch);
