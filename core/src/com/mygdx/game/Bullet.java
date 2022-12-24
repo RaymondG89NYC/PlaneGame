@@ -17,11 +17,12 @@ public class Bullet {
         x = plane.getX();
         y = plane.getY();
         angle = plane.getAngle();
-        speedX = Helper.xSpeed(10, angle);
-        speedY = Helper.ySpeed(10, angle);
+        speedX = Helper.xSpeed(10, angle) + plane.getXSpeed();
+        speedY = Helper.ySpeed(10, angle) + plane.getYSpeed();
         sprite = new Sprite(img);
-        sprite.setScale(1000, 1000);
+        sprite.setScale(3, 3);
         active = true;
+        sprite.setRotation(angle);
     }
 
     public double getX(){
@@ -36,22 +37,14 @@ public class Bullet {
         sprite.draw(batch);
     }
     public void update(){
-        sprite.setRotation(angle);
-        x += speedY;
+        x += speedX;
         y += speedY;
-//        if(!active){
-//            x = plane.getX();
-//            y = plane.getY();
-//            speedX = plane.getXSpeed();
-//            speedY = plane.getYSpeed();
-//            angle = plane.getAngle();
-//        }
-//        if(Helper.outOfScreen(x, y)){
-//            disable();
-//        }
+        if(Helper.outOfScreen(x, y)){
+            disable();
+        }
     }
-//    public void disable(){
-//        active = false;
-//    }
-//    public boolean getStatus(){return active;}
+    public void disable(){
+        active = false;
+    }
+    public boolean getStatus(){return active;}
 }

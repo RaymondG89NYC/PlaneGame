@@ -60,24 +60,13 @@ public class MyGdxGame extends ApplicationAdapter {
 //			}
 //			length = bullets.size();
 
-			if(bulletFrame % 10 == 0) {
+			if(bulletFrame % 3 == 0) {
 				bullets.add(new Bullet(bulletImg, plane));
 			}
 
 		}
 
-		try{
-			for(Bullet b : bullets) {
-				b.update();
-				b.draw(batch);
-				System.out.println("x: " + b.getX());
-				System.out.println("y: " + b.getY());
-				System.out.println("size: " + bullets.size());
-			}
-		}
-		catch (Exception e) {
-			System.out.println("bullet try catch bug detected");
-		}
+
 
 		if(Gdx.input.isKeyPressed(Input.Keys.W)){
 			plane.increaseSpeed();
@@ -89,6 +78,20 @@ public class MyGdxGame extends ApplicationAdapter {
 		for(int i = 0; i < background.length; i++) {
 			background[i].update(speedX, speedY);
 			background[i].draw(batch);
+		}
+
+		try{
+			for(Bullet b : bullets) {
+				if(!b.getStatus()){
+					bullets.remove(b);
+				}
+				b.update();
+				b.draw(batch);
+				System.out.println(bullets.size());
+			}
+		}
+		catch (Exception e) {
+			System.out.println("bullet try catch bug detected");
 		}
 
 		plane.update();

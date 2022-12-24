@@ -13,19 +13,21 @@ public class Plane {
     float distance;
     float height;
     boolean rightSideUp;
+    boolean flipped;
     float angle;
 
     public Plane(Texture img){
-        x = Gdx.graphics.getWidth()/2-10;
+        x = Gdx.graphics.getWidth()/2;
         y = Gdx.graphics.getHeight()/2;
         sprite = new Sprite(img);
         sprite.setScale(2);
         speed = 0;
         angle = 0;
+//        sprite.flip(false, true);
     }
 
     public void draw(SpriteBatch batch){
-        sprite.setPosition((float) x, (float) y);
+        sprite.setPosition(x, y);
         sprite.draw(batch);
 //        System.out.println(x + "," + y);
     }
@@ -35,6 +37,7 @@ public class Plane {
         while(checkAngle()){
             fixAngle();
         }
+
         if(rotateDirection(angle, mouseAngle)){
             if(angle + 1 == mouseAngle || angle - 1 == mouseAngle){
 
@@ -42,11 +45,24 @@ public class Plane {
             else {
                 angle += 4;
             }
+            if(!rightSideUp) {
+                rightSideUp = true;
+                flipped = false;
+            }
         }
         else{
             angle -= 4;
+            if(rightSideUp) {
+                rightSideUp = false;
+                flipped = false;
+            }
         }
-        System.out.println(angle);
+
+        if(!flipped){
+//            sprite.flip(false, true);
+            flipped = !flipped;
+        }
+
         sprite.setRotation(angle);
         distance += getXSpeed();
         height += getYSpeed();
@@ -80,7 +96,7 @@ public class Plane {
 //        }
 //        return !(object - target <= 180 && object - target >= 0);
 //        if(Math.abs()
-        return (object - target > 180 || object - target < 0);
+        return (object - target > 180 || object - target < 0 && target - object < 270);
     }
 
     public boolean checkAngle(){
