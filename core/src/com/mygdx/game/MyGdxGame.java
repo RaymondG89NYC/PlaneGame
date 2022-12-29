@@ -16,6 +16,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	Texture backgroundImg;
 	Texture planeImg1;
 	Texture bulletImg;
+	Texture cloudImg[];
+	Texture missileImg;
 	int mouseX;
 	int mouseY;
 	float speedX;
@@ -23,7 +25,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	Plane plane;
 	Background[] background;
 	ArrayList<Bullet> bullets;
+	ArrayList<Missile> missiles;
 	int bulletFrame;
+	int missileFrame;
 	
 	@Override
 	public void create () {
@@ -31,9 +35,17 @@ public class MyGdxGame extends ApplicationAdapter {
 		backgroundImg = new Texture("background.png");
 		planeImg1 = new Texture("plane.png");
 		bulletImg = new Texture("bullet.png");
+		missileImg = new Texture("missile1.png");
+
+		cloudImg = new Texture[4];
+		cloudImg[0] = new Texture("cloud1.png");
+		cloudImg[1] = new Texture("cloud2.png");
+		cloudImg[2] = new Texture("cloud3.png");
+		cloudImg[3] = new Texture("cloud4.png");
 
 		plane = new Plane(planeImg1);
 		background = new Background[3];
+		missiles = new ArrayList<Missile>();
 
 		for(int i = 0; i < background.length; i++) {
 			background[i] = new Background(backgroundImg, i);
@@ -49,6 +61,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		//frames
 		bulletFrame++;
+		missileFrame++;
+
 
 		speedX = plane.getXSpeed();
 		speedY = plane.getYSpeed();
@@ -66,6 +80,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		}
 
+		if(missileFrame % 10 == 0){
+			missiles.add(new Missile(missileImg, plane));
+		}
 
 
 		if(Gdx.input.isKeyPressed(Input.Keys.W)){
@@ -92,6 +109,20 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 		catch (Exception e) {
 			System.out.println("bullet try catch bug detected");
+		}
+
+		try{
+			for(Missile m : missiles) {
+				if(!m.getStatus()){
+					missiles.remove(m);
+				}
+				m.update();
+				m.draw(batch);
+				System.out.println(missiles.size());
+			}
+		}
+		catch (Exception e) {
+			System.out.println("missile try catch bug detected");
 		}
 
 		plane.update();

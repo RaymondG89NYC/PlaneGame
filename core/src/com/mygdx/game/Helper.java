@@ -5,15 +5,22 @@ import java.lang.Math;
 
 
 public class Helper {
-    public static float findDegree(double playerX, double playerY){
-        int x1= Gdx.input.getX();
-        int y1=Gdx.graphics.getHeight()-Gdx.input.getY();
+    public static float findDegree(double playerX, double playerY, boolean player){
+        float angle;
+        if(player) {
+            int x1 = Gdx.input.getX();
+            int y1 = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-//        System.out.println(x1 + "," + y1);
-//        System.out.println(Gdx.graphics.getHeight());
+            double radians = Math.atan2(y1 - playerY, x1 - playerX);
+            angle = (float) radians * MathUtils.radiansToDegrees;
+        }
+        else{
+            int x1 = Gdx.graphics.getWidth()/2;
+            int y1 = Gdx.graphics.getHeight()/2;
 
-        double radians= Math.atan2(y1 - playerY, x1 - playerX);
-        float angle=(float)radians* MathUtils.radiansToDegrees;
+            double radians = Math.atan2(y1 - playerY, x1 - playerX);
+            angle = (float) radians * MathUtils.radiansToDegrees;
+        }
         return angle;
     }
     public static float xSpeed(double speed, float degree){
@@ -30,5 +37,9 @@ public class Helper {
     }
     public static boolean outOfScreen(double objectX, double objectY){
         return ((objectX > Gdx.graphics.getWidth() || objectX < 0) || (objectY < 0 || objectY > Gdx.graphics.getHeight()));
+    }
+
+    public static double random(int max, int min){
+        return Math.random()*(max-min+1)+min;
     }
 }

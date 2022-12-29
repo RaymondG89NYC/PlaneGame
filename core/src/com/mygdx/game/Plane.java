@@ -32,7 +32,7 @@ public class Plane {
 //        System.out.println(x + "," + y);
     }
     public void update(){
-        float mouseAngle = Helper.findDegree(this.x, this.y);
+        float mouseAngle = Helper.findDegree(x, y, true);
 
         while(checkAngle()){
             fixAngle();
