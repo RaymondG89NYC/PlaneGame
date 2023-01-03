@@ -18,6 +18,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	Texture bulletImg;
 	Texture cloudImg[];
 	Texture missileImg;
+	Texture explosionImg;
 	int mouseX;
 	int mouseY;
 	float speedX;
