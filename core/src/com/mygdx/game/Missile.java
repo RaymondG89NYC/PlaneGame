@@ -93,4 +93,7 @@ public class Missile {
         }
     }
     public boolean getStatus(){return active;}
+    public void disable(){
+        active = false;
+    }
 }

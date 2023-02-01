@@ -117,6 +117,17 @@ public class MyGdxGame extends ApplicationAdapter {
 				if(!m.getStatus()){
 					missiles.remove(m);
 				}
+				for(Bullet b: bullets){
+					int mHeight = 25;
+					int mLength = 25;
+					int bHeight = b.getSize();
+					int bLength = bHeight;
+					if(b.getX() >= m.getX() && b.getX() <= m.getX()+mLength && b.getY() >= m.getY() && b.getY() <= m.getY()+mHeight){
+						b.disable();
+						m.disable();
+						System.out.println("TESTTTTT");
+					}
+				}
 				m.update();
 				m.draw(batch);
 				System.out.println(missiles.size());

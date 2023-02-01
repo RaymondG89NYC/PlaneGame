@@ -13,14 +13,16 @@ public class Bullet {
     float angle;
     public Sprite sprite;
     boolean active;
+    int size;
     public Bullet(Texture img, Plane plane){
         x = plane.getX();
         y = plane.getY();
+        size = 3;
         angle = plane.getAngle();
         speedX = Helper.xSpeed(10, angle) + plane.getXSpeed();
         speedY = Helper.ySpeed(10, angle) + plane.getYSpeed();
         sprite = new Sprite(img);
-        sprite.setScale(3, 3);
+        sprite.setScale(size, size);
         active = true;
         sprite.setRotation(angle);
     }
@@ -30,6 +32,9 @@ public class Bullet {
     }
     public double getY(){
         return y;
+    }
+    public int getSize(){
+        return size;
     }
 
     public void draw(SpriteBatch batch){
