@@ -9,6 +9,7 @@ public class Explosion {
     double x;
     double y;
     float angle;
+    float rotateAngle;
     public Sprite sprite;
     boolean active;
     Plane plane;
@@ -20,10 +21,11 @@ public class Explosion {
 
         this.plane = plane;
 
-        angle = MathUtils.randomSign() * (float)Helper.random(180,0);
+        angle = MathUtils.randomSign() * (float)Helper.random(360,0);
+        rotateAngle = MathUtils.randomSign() * (float)Helper.random(10,5);
 
         sprite = new Sprite(img);
-        sprite.setScale(2, 2);
+        sprite.setScale(3, 3);
         active = true;
         sprite.setRotation(angle);
     }
@@ -37,17 +39,20 @@ public class Explosion {
     public boolean getStatus(){
         return active;
     }
+    public float getFrames(){return frame;}
     public void draw(SpriteBatch batch){
         sprite.setPosition((float) x, (float) y);
+        sprite.rotate(rotateAngle);
         sprite.draw(batch);
     }
     public void update() {
-        x -= plane.getX();
-        y -= plane.getY();
+        x -= plane.getXSpeed();
+        y -= plane.getYSpeed();
         frame++;
-        if(frame > 60){
-            sprite.setScale(1, 1);
-        }
+
+//        if(frame > 60){
+//            sprite.setScale(1, 1);
+//        }
         if(frame == 120){
             active = false;
         }

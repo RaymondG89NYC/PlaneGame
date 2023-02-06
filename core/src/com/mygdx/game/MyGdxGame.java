@@ -27,6 +27,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	Background[] background;
 	ArrayList<Bullet> bullets;
 	ArrayList<Missile> missiles;
+	ArrayList<Explosion> explosions;
 	int bulletFrame;
 	int missileFrame;
 	
@@ -37,6 +38,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		planeImg1 = new Texture("plane.png");
 		bulletImg = new Texture("bullet.png");
 		missileImg = new Texture("missile1.png");
+		explosionImg = new Texture("explosion.png.png");
 
 		cloudImg = new Texture[4];
 		cloudImg[0] = new Texture("cloud1.png");
@@ -47,6 +49,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		plane = new Plane(planeImg1);
 		background = new Background[3];
 		missiles = new ArrayList<Missile>();
+		explosions = new ArrayList<Explosion>();
 
 		for(int i = 0; i < background.length; i++) {
 			background[i] = new Background(backgroundImg, i);
@@ -105,11 +108,27 @@ public class MyGdxGame extends ApplicationAdapter {
 				}
 				b.update();
 				b.draw(batch);
-				System.out.println(bullets.size());
+
 			}
 		}
 		catch (Exception e) {
 			System.out.println("bullet try catch bug detected");
+		}
+		System.out.println(bullets.size() + " bullets");
+
+		try{
+			for(Explosion e : explosions) {
+				if(!e.getStatus()){
+					explosions.remove(e);
+				}
+				e.update();
+				e.draw(batch);
+//				System.out.println("Explosions should appear");
+//				System.out.println("Explosion frames: " + e.getFrames());
+			}
+		}
+		catch (Exception e) {
+			System.out.println("explosion try catch bug detected");
 		}
 
 		try{
@@ -125,17 +144,18 @@ public class MyGdxGame extends ApplicationAdapter {
 					if(b.getX() >= m.getX() && b.getX() <= m.getX()+mLength && b.getY() >= m.getY() && b.getY() <= m.getY()+mHeight){
 						b.disable();
 						m.disable();
-						System.out.println("TESTTTTT");
+						explosions.add(new Explosion(explosionImg, plane, m));
 					}
 				}
 				m.update();
 				m.draw(batch);
-				System.out.println(missiles.size());
+
 			}
 		}
 		catch (Exception e) {
 			System.out.println("missile try catch bug detected");
 		}
+		System.out.println(missiles.size() + " missiles");
 
 		plane.update();
 		plane.draw(batch);
