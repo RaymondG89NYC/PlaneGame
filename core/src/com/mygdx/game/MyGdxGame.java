@@ -28,6 +28,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	ArrayList<Bullet> bullets;
 	ArrayList<Missile> missiles;
 	ArrayList<Explosion> explosions;
+	ArrayList<Text> texts;
 	int bulletFrame;
 	int missileFrame;
 	
@@ -50,6 +51,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		background = new Background[3];
 		missiles = new ArrayList<Missile>();
 		explosions = new ArrayList<Explosion>();
+		texts = new ArrayList<Text>();
 
 		for(int i = 0; i < background.length; i++) {
 			background[i] = new Background(backgroundImg, i);
@@ -84,7 +86,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		}
 
-		if(missileFrame % 10 == 0){
+		if(missileFrame % 600 == 0){
 			missiles.add(new Missile(missileImg, plane));
 		}
 
@@ -149,6 +151,11 @@ public class MyGdxGame extends ApplicationAdapter {
 				}
 				m.update();
 				m.draw(batch);
+				//this has a pretty cool(but really laggy) trail effect
+				texts.add(new Text(".", plane, m));
+				for(int i = 0; i < texts.size(); i ++){
+					texts.get(i).draw(batch);
+				}
 
 			}
 		}
@@ -159,6 +166,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		plane.update();
 		plane.draw(batch);
+
+
 
 
 		batch.end();
