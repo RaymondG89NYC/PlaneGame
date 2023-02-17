@@ -31,6 +31,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	ArrayList<Text> texts;
 	int bulletFrame;
 	int missileFrame;
+	int score;
 	
 	@Override
 	public void create () {
@@ -57,6 +58,8 @@ public class MyGdxGame extends ApplicationAdapter {
 			background[i] = new Background(backgroundImg, i);
 		}
 		bullets = new ArrayList<Bullet>();
+
+		score = 0;
 	}
 
 	@Override
@@ -86,7 +89,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		}
 
-		if(missileFrame % 600 == 0){
+		if(missileFrame % 30 == 0){
 			missiles.add(new Missile(missileImg, plane));
 		}
 
@@ -145,6 +148,10 @@ public class MyGdxGame extends ApplicationAdapter {
 					int bLength = bHeight;
 					if(b.getX() >= m.getX() && b.getX() <= m.getX()+mLength && b.getY() >= m.getY() && b.getY() <= m.getY()+mHeight){
 						b.disable();
+						score+=10;
+						String scoreStr = "";
+						scoreStr+=score;
+						texts.add(new Text(scoreStr, plane, m));
 						m.disable();
 						explosions.add(new Explosion(explosionImg, plane, m));
 					}
@@ -152,9 +159,13 @@ public class MyGdxGame extends ApplicationAdapter {
 				m.update();
 				m.draw(batch);
 				//this has a pretty cool(but really laggy) trail effect
-				texts.add(new Text(".", plane, m));
+//				texts.add(new Text(".", plane, m));
+//				for(int i = 0; i < texts.size(); i ++){
+//					texts.get(i).draw(batch);
+//				}
 				for(int i = 0; i < texts.size(); i ++){
 					texts.get(i).draw(batch);
+					texts.get(i).update(plane.getXSpeed(),plane.getYSpeed());
 				}
 
 			}
