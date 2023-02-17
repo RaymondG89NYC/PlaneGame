@@ -13,10 +13,14 @@ public class Text {
     public Text(String text, Plane plane, Missile missile) {
         this.text = text;
         this.x = missile.getX();
-        this.y = missile.getY();
+        this.y = missile.getY()+20;
     }
     public void draw(Batch batch) {
             font.draw(batch, (CharSequence) text, (float) x, (float) y);
+    }
+    public void update(float playerX, float playerY){
+        x += playerX/20;
+        y += playerY/20;
     }
 
 }
